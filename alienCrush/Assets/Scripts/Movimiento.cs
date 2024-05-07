@@ -53,7 +53,7 @@ public class Movimiento : MonoBehaviour
                     }
                     else if (levelManager.nivel2)
                     {
-                        if (siguientePaso == 3)
+                        if (siguientePaso == 3 || siguientePaso == 5)
                         {
                             Girar();
                         }
