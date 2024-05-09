@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
-using Random=UnityEngine.Random;
+using Random = UnityEngine.Random;
 
 public sealed class Board : MonoBehaviour
 {
@@ -14,8 +14,8 @@ public sealed class Board : MonoBehaviour
 
     public Tile[,] Tiles { get; private set; }
 
-    public int Width => Tiles.GetLength(dimension: 0);
-    public int Height => Tiles.GetLength(dimension: 1);
+    public int Width => Tiles.GetLength( 0);
+    public int Height => Tiles.GetLength( 1);
 
     private readonly List<Tile> _selection = new List<Tile>();
 
@@ -26,7 +26,7 @@ public sealed class Board : MonoBehaviour
 
     private void Start()
     {
-        Tiles = new Tile[rows.Max(selector: row => row.tiles.Length), rows.Length];
+        Tiles = new Tile[rows.Max( row => row.tiles.Length), rows.Length];
 
         for (var y = 0; y < Height; y++)
         {
@@ -52,12 +52,6 @@ public sealed class Board : MonoBehaviour
 
     }
 
-    /* public void Update()
-     {
-         if (!Input.GetKeyDown(KeyCode.A)) return;
-
-         foreach (var connectedTile in Tiles[0, 0].GetConnectedTiles()) connectedTile.icon.transform.DOScale(1.25f, TweenDuration).Play();
-     }*/
 
 
     public async void Select(Tile tile)
@@ -67,7 +61,7 @@ public sealed class Board : MonoBehaviour
 
         if (_selection.Count < 2) return;
 
-        Debug.Log(message: $"Selected tiles at ({_selection[0].x}, {_selection[0].y}) and ({_selection[1].x}, {_selection[1].y})");
+        Debug.Log( $"Selected tiles at ({_selection[0].x}, {_selection[0].y}) and ({_selection[1].x}, {_selection[1].y})");
 
         await Swap(_selection[0], _selection[1]);
 
@@ -118,12 +112,14 @@ public sealed class Board : MonoBehaviour
     private bool CanPop()
     {
         for (var y = 0; y < Height; y++)
-
+        {
             for (var x = 0; x < Width; x++)
-
-                if (Tiles[x, y].GetConnectedTiles().Skip(1).Count() > 2) return true;
-
-        return false;
+            { 
+                if (Tiles[x, y].GetConnectedTiles().Skip(1).Count() >= 2) return true;
+            }
+           
+        }
+        return false;        
     }
 
     private async void Pop()
@@ -164,8 +160,3 @@ public sealed class Board : MonoBehaviour
     }
 }
         
-
-
-
-
-

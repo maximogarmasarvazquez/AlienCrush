@@ -1,9 +1,10 @@
-using System.Collections.Generic;
+ using System.Collections.Generic;
 using Microsoft.Unity.VisualStudio.Editor;
 using Unity.Collections;
 using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 using UnityEngine.Analytics;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 //using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
@@ -37,17 +38,17 @@ public sealed class Tile : MonoBehaviour
    public Tile Left => x > 0 ? Board.Instance.Tiles[x - 1, y] : null;
    public Tile Top => y > 0 ? Board.Instance.Tiles[x, y - 1] : null;
    public Tile Right => x < Board.Instance.Width - 1 ? Board.Instance.Tiles[x + 1, y]: null;
-   public Tile Buttom => y < Board.Instance.Height - 1 ? Board.Instance.Tiles[x, y + 1]: null;
+   public Tile Bottom => y < Board.Instance.Height - 1 ? Board.Instance.Tiles[x, y + 1]: null;
 
    public Tile[] Neighbours => new []
    {
       Left,
       Top,
       Right,
-      Buttom,
+      Bottom,
    };
 
-   private void Start() => button.onClick.AddListener(call:() => Board.Instance.Select(tile:this));
+   private void Start() => button.onClick.AddListener(() => Board.Instance.Select(this));
 
    public List<Tile> GetConnectedTiles(List<Tile> exclude = null)
    {
@@ -62,20 +63,19 @@ public sealed class Tile : MonoBehaviour
       }
       else
       {
-         exclude.Add(item:this);
+         exclude.Add(this);
       }
 
       foreach (var neighbour in Neighbours)
       {
 
-         if (neighbour == null || exclude.Contains(neighbour) || neighbour.Item != Item)continue;
+         if (neighbour == null || exclude.Contains(neighbour) || neighbour.Item != Item) continue;
 
          result.AddRange(neighbour.GetConnectedTiles(exclude));
       }
 
       return result;
    }
-   
-        
-}
 
+
+}
