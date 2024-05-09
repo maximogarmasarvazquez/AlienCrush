@@ -35,9 +35,9 @@ public sealed class Tile : MonoBehaviour
    public Button button;
 
    public Tile Left => x > 0 ? Board.Instance.Tiles[x - 1, y] : null;
-   public Tile Top => x > 0 ? Board.Instance.Tiles[x, y - 1] : null;
+   public Tile Top => y > 0 ? Board.Instance.Tiles[x, y - 1] : null;
    public Tile Right => x < Board.Instance.Width - 1 ? Board.Instance.Tiles[x + 1, y]: null;
-   public Tile Buttom => y < Board.Instance.Width - 1 ? Board.Instance.Tiles[x, y + 1]: null;
+   public Tile Buttom => y < Board.Instance.Height - 1 ? Board.Instance.Tiles[x, y + 1]: null;
 
    public Tile[] Neighbours => new []
    {
