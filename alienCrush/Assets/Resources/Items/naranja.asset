@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: naranja
   m_EditorClassIdentifier: 
   value: 5
-  sprite: {fileID: 21300000, guid: 06aa3ab52c4491e4bb8c72ed3a175a2b, type: 3}
+  sprite: {fileID: 21300000, guid: 2cd8f54524406f44f9a5253b58e31058, type: 3}

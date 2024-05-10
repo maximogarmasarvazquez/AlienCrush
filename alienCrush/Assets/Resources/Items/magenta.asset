@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: magenta
   m_EditorClassIdentifier: 
   value: 3
-  sprite: {fileID: 21300000, guid: 277ba5086ce79c046b28d2483a20014a, type: 3}
+  sprite: {fileID: 21300000, guid: 513245db0825dff4bbb333518a1a8649, type: 3}

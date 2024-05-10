@@ -10,6 +10,10 @@ public sealed class Board : MonoBehaviour
 {
     public static Board Instance { get; private set; }
 
+    [SerializeField] private AudioClip collectSound;
+
+    [SerializeField] private AudioSource audioSource;
+
     public Row[] rows;
 
     public Tile[,] Tiles { get; private set; }
@@ -49,7 +53,6 @@ public sealed class Board : MonoBehaviour
             }
         }
 
-
     }
 
 
@@ -57,7 +60,21 @@ public sealed class Board : MonoBehaviour
     public async void Select(Tile tile)
     {
 
-        if (!_selection.Contains(tile)) _selection.Add(tile);
+        if (!_selection.Contains(tile))
+        { 
+           if (_selection.Count > 0)
+            {
+                if (Array.IndexOf(_selection[0].Neighbours, tile) != -1) _selection.Add(tile);
+                
+            }
+           else
+            {
+                _selection.Add(tile);
+            }
+            
+        }
+
+       
 
         if (_selection.Count < 2) return;
 
@@ -140,6 +157,11 @@ public sealed class Board : MonoBehaviour
                 {
                     deflateSequence.Join(connectedTile.icon.transform.DOScale(Vector3.zero, TweenDuration));
                 }
+
+                audioSource.PlayOneShot(collectSound);
+
+                ScoreCounter.Instance.Score += tile.Item.value * connectedTiles.Count;
+
                 await deflateSequence.Play()
                             .AsyncWaitForCompletion();
 
@@ -154,6 +176,10 @@ public sealed class Board : MonoBehaviour
                 
                 await inflateSequence.Play()
                             .AsyncWaitForCompletion();
+
+                x = 0;
+                y = 0;
+
             }
 
         }
