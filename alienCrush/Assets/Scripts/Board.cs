@@ -1,40 +1,44 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DG.Tweening;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
+using static Unity.Burst.Intrinsics.X86.Avx;
 using Random = UnityEngine.Random;
 
 public sealed class Board : MonoBehaviour
 {
     public static Board Instance { get; private set; }
 
-    [SerializeField] private AudioClip collectSound;
+    [SerializeField] private AudioClip collectSound;//  [SerializeField] permite hacer visible una variable privada desde el inspector de unity
 
     [SerializeField] private AudioSource audioSource;
 
-    public Row[] rows;
+    public Row[] rows; // desde unity se traen los rows en el que se encuentran los tiles
 
-    public Tile[,] Tiles { get; private set; }
+    public Tile[,] Tiles { get; private set; } //[,] la coma significa que la matriz va a ser bidimennsional en lugar de  unidimensional, accedes utilizando dos índices, uno para la fila y otro para la columna
 
     public int Width => Tiles.GetLength( 0);
     public int Height => Tiles.GetLength( 1);
 
-    private readonly List<Tile> _selection = new List<Tile>();
-
+    private readonly List<Tile> _selection = new List<Tile>();//readonly: Una vez que se haya inicializado este campo, no se puede cambiar su valor,
+                                                             //significa que una vez que se haya creado una instancia de List<Tile> y se haya asignado a este campo,
+                                                            //no se puede asignar otra instancia de List<Tile> a este campo. Sin embargo, los elementos dentro de la lista pueden ser modificados.
+                                                           //List<Tile>: Es el tipo de datos del campo.Es una
+                                                          //lista genérica que contiene elementos del tipo Tile.Una lista es una colección de elementos que puede crecer o decrecer dinámicamente.
     private const float TweenDuration = 0.25f;
-
-    private void Awake() => Instance = this;
-
-
+    private void Awake() => Instance = this;//void indica que el metodo no devuelve un valor
+                                           //El método Awake() en Unity se utiliza para inicializar objetos antes de que comience el juego.
+                                         //Es parte del ciclo de vida de los objetos en Unity y se llama una vez cuando el objeto se activa o se carga en la escena,justo antes de que comience el método Start().
     private void Start()
     {
-        Tiles = new Tile[rows.Max( row => row.tiles.Length), rows.Length];
-
+        Tiles = new Tile[rows.Max( row => row.tiles.Length), rows.Length]; 
         for (var y = 0; y < Height; y++)
         {
-
             for (var x = 0; x < Width; x++)
 
             {
