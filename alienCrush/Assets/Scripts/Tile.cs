@@ -50,32 +50,32 @@ public sealed class Tile : MonoBehaviour
 
    private void Start() => button.onClick.AddListener(() => Board.Instance.Select(this));
 
-   public List<Tile> GetConnectedTiles(List<Tile> exclude = null)
-   {
+    public List<Tile> GetConnectedTiles(List<Tile> exclude = null)
+    {
 
-      var result = new List<Tile> {this, };
+        var result = new List<Tile> { this, };
 
-      if (exclude == null)
-      {
+        if (exclude == null)
+        {
 
-         exclude = new List<Tile> {this, };
+            exclude = new List<Tile> { this, };
 
-      }
-      else
-      {
-         exclude.Add(this);
-      }
+        }
+        else
+        {
+            exclude.Add(this);
+        }
 
-      foreach (var neighbour in Neighbours)
-      {
+        foreach (var neighbour in Neighbours)
+        {
 
-         if (neighbour == null || exclude.Contains(neighbour) || neighbour.Item != Item) continue;
+            if (neighbour == null || exclude.Contains(neighbour) || neighbour.Item != Item) continue;
 
-         result.AddRange(neighbour.GetConnectedTiles(exclude));
-      }
+            result.AddRange(neighbour.GetConnectedTiles(exclude));
+        }
 
-      return result;
-   }
+        return result;
+    }
 
 
 }
