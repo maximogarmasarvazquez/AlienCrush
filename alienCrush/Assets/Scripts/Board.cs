@@ -163,78 +163,25 @@ public sealed class Board : MonoBehaviour
 
     public List<Coordenadas> lista = new List<Coordenadas>
 {
-  new Coordenadas { x1 = 0, y1 = 0, x2 = 1, y2 = 0, x3 = 2, y3 = 0 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 1, y2 = 0, x3 = 2, y3 = 1 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 1, y2 = 0, x3 = 2, y3 = 2 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 1, y2 = 0, x3 = 2, y3 = 3 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 1, y2 = 0, x3 = 2, y3 = 4 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 1, y2 = 1, x3 = 2, y3 = 1 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 1, y2 = 1, x3 = 2, y3 = 2 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 1, y2 = 1, x3 = 2, y3 = 3 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 1, y2 = 1, x3 = 2, y3 = 4 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 1, y2 = 2, x3 = 2, y3 = 2 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 1, y2 = 2, x3 = 2, y3 = 3 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 1, y2 = 2, x3 = 2, y3 = 4 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 1, y2 = 3, x3 = 2, y3 = 3 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 1, y2 = 3, x3 = 2, y3 = 4 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 1, y2 = 4, x3 = 2, y3 = 4 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 2, y2 = 0, x3 = 3, y3 = 0 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 2, y2 = 0, x3 = 3, y3 = 1 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 2, y2 = 0, x3 = 3, y3 = 2 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 2, y2 = 0, x3 = 3, y3 = 3 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 2, y2 = 0, x3 = 3, y3 = 4 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 2, y2 = 1, x3 = 3, y3 = 1 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 2, y2 = 1, x3 = 3, y3 = 2 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 2, y2 = 1, x3 = 3, y3 = 3 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 2, y2 = 1, x3 = 3, y3 = 4 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 2, y2 = 2, x3 = 3, y3 = 2 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 2, y2 = 2, x3 = 3, y3 = 3 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 2, y2 = 2, x3 = 3, y3 = 4 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 2, y2 = 3, x3 = 3, y3 = 3 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 2, y2 = 3, x3 = 3, y3 = 4 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 2, y2 = 4, x3 = 3, y3 = 4 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 3, y2 = 0, x3 = 4, y3 = 0 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 3, y2 = 0, x3 = 4, y3 = 1 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 3, y2 = 0, x3 = 4, y3 = 2 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 3, y2 = 0, x3 = 4, y3 = 3 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 3, y2 = 0, x3 = 4, y3 = 4 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 3, y2 = 1, x3 = 4, y3 = 1 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 3, y2 = 1, x3 = 4, y3 = 2 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 3, y2 = 1, x3 = 4, y3 = 3 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 3, y2 = 1, x3 = 4, y3 = 4 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 3, y2 = 2, x3 = 4, y3 = 2 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 3, y2 = 2, x3 = 4, y3 = 3 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 3, y2 = 2, x3 = 4, y3 = 4 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 3, y2 = 3, x3 = 4, y3 = 3 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 3, y2 = 3, x3 = 4, y3 = 4 },
-new Coordenadas { x1 = 0, y1 = 0, x2 = 3, y2 = 4, x3 = 4, y3 = 4 },
-
-    // Agrega más objetos aquí...
+new Coordenadas { x1 = 0, y1 = 0, x2 = 1, y2 = 0, x3 = 3 , y3 = 0 },
+    
 };
-   
-    private bool CanCombinacion() //funcion para analizar las combinaciones del tablero
-    {  
-      
-           foreach(var cordenada in lista)
-                {
 
+    private bool CanCombinacion() // función para analizar las posibles combinaciones del tablero antes de que se realicen
+    {
+        foreach (var cordenada in lista)
+        {
             if (Tiles[cordenada.x1, cordenada.y1].Item.id == Tiles[cordenada.x2, cordenada.y2].Item.id && Tiles[cordenada.x3, cordenada.y3].Item.id == Tiles[cordenada.x2, cordenada.y2].Item.id)
             {
                 Debug.Log("hay combinaciones");
                 return true;
             }
-            else
-            {
-                Debug.Log("no hay combinaciones");
-            }
+        }
 
-                }
-     
-                return false;
-       
+        Debug.Log("no hay combinaciones");
+        return false;
     }
-    
-   
+
 
 
     private async void Pop() //esta función maneja la eliminación de grupos de fichas conectadas en un juego de puzzle, animando la eliminación y la aparición de nuevas fichas.
