@@ -18,23 +18,41 @@ public sealed class ScoreCounter : MonoBehaviour
         {
             if (score == value) return;
             score = value;
-
-            scoreText.SetText($"{score}");
+            //estefi
+            if (scoreText != null)//estefi
+            {
+                scoreTextTotal.SetText($"{score}");
+                scoreText.SetText($"{score}");
+                //estefi
+            }
+            else
+            {
+                Debug.LogWarning("ScoreText is not assigned.");
+            } //estefi
 
             //if (score >= 100)
             //{
             //    Debug.Log("Cambio de escena");
             //    SceneManager.LoadScene(1);
             //}
-            
+
+            //estefi
+            if (score >= 300)
+            {
+                Debug.Log("Puntaje alcanzado: 300");
+               
+                Board.Instance.EndGame();
+
+                //GameOver.Instance.AnimateGameOver(); // Llama a la animación de Game Over
+            }
         }
     }
 
     [SerializeField] private TextMeshProUGUI scoreText;
-
+    [SerializeField] private TextMeshProUGUI scoreTextTotal;
     private void Awake() => Instance = this;
 
 
 
-  
+
 }

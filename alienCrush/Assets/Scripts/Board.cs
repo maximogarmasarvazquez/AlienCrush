@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,58 +15,69 @@ using Random = UnityEngine.Random;
 
 public sealed class Board : MonoBehaviour
 {
-        public static Board Instance { get; private set; }
+    public static Board Instance { get; private set; }
 
-        [SerializeField] private AudioClip collectSound;//  [SerializeField] permite hacer visible una variable privada desde el inspector de unity
+    [SerializeField] private AudioClip collectSound;//  [SerializeField] permite hacer visible una variable privada desde el inspector de unity
 
-        [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource audioSource;
 
-        public Row[] rows; // desde unity se traen los rows en el que se encuentran los tiles
+    //estefi
+    [SerializeField] private GameOver gameOver;
 
 
-        public Tile[,] Tiles { get; private set; } //[,] la coma significa que la matriz va a ser bidimennsional en lugar de  unidimensional, accedes utilizando dos índices, uno para la fila y otro para la columna
+    public Row[] rows; // desde unity se traen los rows en el que se encuentran los tiles
+    public Tile[,] Tiles { get; private set; } //[,] la coma significa que la matriz va a ser bidimennsional en lugar de  unidimensional, accedes utilizando dos ï¿½ndices, uno para la fila y otro para la columna
 
-        public int Width => Tiles.GetLength(0);
-        public int Height => Tiles.GetLength(1);
+    public int Width => Tiles.GetLength(0);
+    public int Height => Tiles.GetLength(1);
 
-        private readonly List<Tile> _selection = new List<Tile>();//readonly: Una vez que se haya inicializado este campo, no se puede cambiar su valor,
-                                                                  //significa que una vez que se haya creado una instancia de List<Tile> y se haya asignado a este campo,
-                                                                  //no se puede asignar otra instancia de List<Tile> a este campo. Sin embargo, los elementos dentro de la lista pueden ser modificados.
-                                                                  //List<Tile>: Es el tipo de datos del campo.Es una
-                                                                  //lista genérica que contiene elementos del tipo Tile.Una lista es una colección de elementos que puede crecer o decrecer dinámicamente.
-        private const float TweenDuration = 0.25f;
-        private void Awake() => Instance = this;//void indica que el metodo no devuelve un valor
-                                                //El método Awake() en Unity se utiliza para inicializar objetos antes de que comience el juego.
-                                                //Es parte del ciclo de vida de los objetos en Unity y se llama una vez cuando el objeto se activa o se carga en la escena,justo antes de que comience el método Start().
-        private void Start()                //En resumen, la función Start() inicializa el tablero del juego asignando aleatoriamente elementos a cada tile y configurando sus coordenadas x e y.
+    private readonly List<Tile> _selection = new List<Tile>();//readonly: Una vez que se haya inicializado este campo, no se puede cambiar su valor,
+                                                              //significa que una vez que se haya creado una instancia de List<Tile> y se haya asignado a este campo,
+                                                              //no se puede asignar otra instancia de List<Tile> a este campo. Sin embargo, los elementos dentro de la lista pueden ser modificados.
+                                                              //List<Tile>: Es el tipo de datos del campo.Es una
+                                                              //lista genï¿½rica que contiene elementos del tipo Tile.Una lista es una colecciï¿½n de elementos que puede crecer o decrecer dinï¿½micamente.
+    private const float TweenDuration = 0.25f;
+
+    //estefi
+    private bool isGameOver = false; // Variable to track game state
+
+    private void Awake() => Instance = this;//void indica que el metodo no devuelve un valor
+                                            //El mï¿½todo Awake() en Unity se utiliza para inicializar objetos antes de que comience el juego.
+                                            //Es parte del ciclo de vida de los objetos en Unity y se llama una vez cuando el objeto se activa o se carga en la escena,justo antes de que comience el mï¿½todo Start().
+    private void Start()                //En resumen, la funciï¿½n Start() inicializa el tablero del juego asignando aleatoriamente elementos a cada tile y configurando sus coordenadas x e y.
+    {
+        Tiles = new Tile[rows.Max(row => row.tiles.Length), rows.Length];
+        for (var y = 0; y < Height; y++)
         {
-            Tiles = new Tile[rows.Max(row => row.tiles.Length), rows.Length];
-            for (var y = 0; y < Height; y++)
+            for (var x = 0; x < Width; x++)
+
             {
-                for (var x = 0; x < Width; x++)
 
-                {
+                var tile = rows[y].tiles[x];
 
-                    var tile = rows[y].tiles[x];
-
-                    tile.x = x;
-                    tile.y = y;
+                tile.x = x;
+                tile.y = y;
 
 
-                    tile.Item = ItemDataBase.Items[Random.Range(0, ItemDataBase.Items.Length)];
+                tile.Item = ItemDataBase.Items[Random.Range(0, ItemDataBase.Items.Length)];
 
-                    Tiles[x, y] = tile;
+                Tiles[x, y] = tile;
 
 
-                }
             }
-
         }
 
-        public async void Select(Tile tile)//En resumen, esta función gestiona el proceso de selección de tiles en el tablero del juego, realizando intercambios,
-                                           //verificaciones y limpieza de la lista de selección según sea necesario.
-                                           //Además, utiliza async y await para esperar la finalización de las operaciones asíncronas, como la animación de intercambio de tiles.
+    }
+
+    public async void Select(Tile tile)//En resumen, esta funciï¿½n gestiona el proceso de selecciï¿½n de tiles en el tablero del juego, realizando intercambios,
+                                       //verificaciones y limpieza de la lista de selecciï¿½n segï¿½n sea necesario.
+                                       //Ademï¿½s, utiliza async y await para esperar la finalizaciï¿½n de las operaciones asï¿½ncronas, como la animaciï¿½n de intercambio de tiles.
     {
+
+        //estefi
+        if (isGameOver) return; // Prevent further selections if game is over
+
+
         if (!_selection.Contains(tile))
         {
             if (_selection.Count > 0)
@@ -125,7 +136,7 @@ public sealed class Board : MonoBehaviour
         Debug.Log($"Swapped tiles at ({tile1.x}, {tile1.y}) and ({tile2.x}, {tile2.y})");
     }
 
-    private bool CanPop() // esta función es parte de un sistema de detección de combinaciones en un juego de fichas y devuelve true si hay al menos una combinación que se puede "eliminar", de acuerdo con las reglas del juego.
+    private bool CanPop() // esta funciï¿½n es parte de un sistema de detecciï¿½n de combinaciones en un juego de fichas y devuelve true si hay al menos una combinaciï¿½n que se puede "eliminar", de acuerdo con las reglas del juego.
     {
         for (var y = 0; y < Height; y++)
         {
@@ -233,8 +244,8 @@ public sealed class Board : MonoBehaviour
         return false;
     }
 
-  private async void Pop() //esta función maneja la eliminación de grupos de fichas conectadas en un juego de puzzle, animando la eliminación y la aparición de nuevas fichas.
-        {
+    private async void Pop() //esta funciï¿½n maneja la eliminaciï¿½n de grupos de fichas conectadas en un juego de puzzle, animando la eliminaciï¿½n y la apariciï¿½n de nuevas fichas.
+    {
         for (var y = 0; y < Height; y++)
         {
             for (var x = 0; x < Width; x++)
@@ -271,7 +282,35 @@ public sealed class Board : MonoBehaviour
                 }
 
                 await inflateSequence.Play().AsyncWaitForCompletion();
+
+
             }
         }
+
+
+        //estefi
+        if (ScoreCounter.Instance.Score >= 300)
+        {
+            EndGame();
+            
+        }
     }
+
+    //estefi
+    // internal void EndGame()
+    //{
+    //        throw new NotImplementedException();
+    // }
+
+    //estefi
+    public void EndGame()
+    {
+        isGameOver = true; // Set the game over flag
+        //gameOver.SetTrigger("GameOverTrigger");
+        gameOver.AnimateGameOver();
+        //GameOver.Instance.AnimateGameOver();
+        Debug.Log("Ending Game");
+
+    }
+
 }
