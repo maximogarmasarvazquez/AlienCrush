@@ -77,7 +77,7 @@ public class Movimiento : MonoBehaviour
                     if (levelManager.nivel1)
                     {
                       
-                        if (siguientePaso == 4)
+                        if (siguientePaso == 3)
                         {
                            
                             Debug.Log("nivel1" + levelManager.nivel1);

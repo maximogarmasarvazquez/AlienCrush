@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb7fffc71746e34ab383eb33b7b5921, type: 3}
   m_Name: robot
   m_EditorClassIdentifier: 
-  value: 5
+  value: 8
   sprite: {fileID: 21300000, guid: 03cb684501d21d943a2f5bf0b31319fc, type: 3}
   id: 4

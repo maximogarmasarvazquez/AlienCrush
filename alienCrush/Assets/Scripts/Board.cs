@@ -35,14 +35,14 @@ public sealed class Board : MonoBehaviour
                                                               //significa que una vez que se haya creado una instancia de List<Tile> y se haya asignado a este campo,
                                                               //no se puede asignar otra instancia de List<Tile> a este campo. Sin embargo, los elementos dentro de la lista pueden ser modificados.
                                                               //List<Tile>: Es el tipo de datos del campo.Es una
-                                                              //lista gen�rica que contiene elementos del tipo Tile.Una lista es una colecci�n de elementos que puede crecer o decrecer din�micamente.
+                                                              //lista generica que contiene elementos del tipo Tile.Una lista es una coleccion de elementos que puede crecer o decrecer dinamicamente.
     private const float TweenDuration = 0.25f;
 
     //estefi
     private bool isGameOver = false; // Variable to track game state
 
     private void Awake() => Instance = this;//void indica que el metodo no devuelve un valor
-                                            //El m�todo Awake() en Unity se utiliza para inicializar objetos antes de que comience el juego.
+                                            //El metodo Awake() en Unity se utiliza para inicializar objetos antes de que comience el juego.
                                             //Es parte del ciclo de vida de los objetos en Unity y se llama una vez cuando el objeto se activa o se carga en la escena,justo antes de que comience el m�todo Start().
     private void Start()                //En resumen, la funci�n Start() inicializa el tablero del juego asignando aleatoriamente elementos a cada tile y configurando sus coordenadas x e y.
     {
@@ -75,7 +75,7 @@ public sealed class Board : MonoBehaviour
     {
 
         //estefi
-        if (isGameOver) return; // Prevent further selections if game is over
+        if (isGameOver) return; 
 
 
         if (!_selection.Contains(tile))
@@ -136,7 +136,8 @@ public sealed class Board : MonoBehaviour
         Debug.Log($"Swapped tiles at ({tile1.x}, {tile1.y}) and ({tile2.x}, {tile2.y})");
     }
 
-    private bool CanPop() // esta funci�n es parte de un sistema de detecci�n de combinaciones en un juego de fichas y devuelve true si hay al menos una combinaci�n que se puede "eliminar", de acuerdo con las reglas del juego.
+    private bool CanPop() // esta funcion es parte de un sistema de deteccion de combinaciones
+                          // en un juego de fichas y devuelve true si hay al menos una combinacion que se puede "eliminar", de acuerdo con las reglas del juego.
     {
         for (var y = 0; y < Height; y++)
         {
@@ -152,14 +153,6 @@ public sealed class Board : MonoBehaviour
         return false;
     }
 
-    public void Win()
-    {
-        if (ScoreCounter.Instance.Score >= 100)
-        {
-            Debug.Log("Cambio de escena");
-            SceneManager.LoadScene(1);
-        }
-    }
 
     public List<Coordenadas> listaMovimientosPosibles = new List<Coordenadas>();
 
@@ -189,7 +182,9 @@ public sealed class Board : MonoBehaviour
         return listaMovimientosPosibles;
     }
 
-    private bool PuedeCombinar(int x1, int y1, int x2, int y2)
+    private bool PuedeCombinar(int x1, int y1, int x2, int y2)//La función PuedeCombinar verifica si al intercambiar dos elementos del tablero se
+                                                              //forma una combinación válida hace un intercambio temporal, verificacicando combinaciones
+                                                              //en ambas posiciones y luego restaurando los elementos.
     {
         var temp = Tiles[x1, y1].Item;
         Tiles[x1, y1].Item = Tiles[x2, y2].Item;
@@ -204,7 +199,8 @@ public sealed class Board : MonoBehaviour
         return hayCombinacion;
     }
 
-    private bool HayCombinacionEnPosicion(int x, int y)
+    private bool HayCombinacionEnPosicion(int x, int y)//comprueba si al menos tres elementos iguales están alineados horizontal o verticalmente en la posición
+                                                       //(x, y) del tablero. Si se encuentra una combinación válida se retorna true. Si no, se retorna false.
     {
         int id = Tiles[x, y].Item.id;
 
@@ -244,7 +240,7 @@ public sealed class Board : MonoBehaviour
         return false;
     }
 
-    private async void Pop() //esta funci�n maneja la eliminaci�n de grupos de fichas conectadas en un juego de puzzle, animando la eliminaci�n y la aparici�n de nuevas fichas.
+    private async void Pop() //esta funcion maneja la eliminacion de grupos de fichas conectadas en un juego de puzzle, animando la eliminacion y la aparicion de nuevas fichas.
     {
         for (var y = 0; y < Height; y++)
         {
@@ -254,6 +250,8 @@ public sealed class Board : MonoBehaviour
                 var connectedTiles = tile.GetConnectedTiles();
 
                 if (connectedTiles.Skip(1).Count() < 2) continue;
+
+               
 
                 var deflateSequence = DOTween.Sequence();
 
@@ -270,23 +268,23 @@ public sealed class Board : MonoBehaviour
 
                 var inflateSequence = DOTween.Sequence();
 
-                foreach (var connectedTile in connectedTiles)
-                {
-                    connectedTile.Item = ItemDataBase.Items[Random.Range(0, ItemDataBase.Items.Length)];
-                    inflateSequence.Join(connectedTile.icon.transform.DOScale(Vector3.one, TweenDuration));
-                }
-
-                if (CanCombinacion())
+                do
                 {
 
-                }
+                    foreach (var connectedTile in connectedTiles)
+                    {
+                        connectedTile.Item = ItemDataBase.Items[Random.Range(0, ItemDataBase.Items.Length)];
+                        //bomba
+                        inflateSequence.Join(connectedTile.icon.transform.DOScale(Vector3.one, TweenDuration));
+                    }
+
+
+                } while (!CanCombinacion());
 
                 await inflateSequence.Play().AsyncWaitForCompletion();
 
-
             }
         }
-
 
         //estefi
         if (ScoreCounter.Instance.Score >= 300)
@@ -296,19 +294,14 @@ public sealed class Board : MonoBehaviour
         }
     }
 
-    //estefi
-    // internal void EndGame()
-    //{
-    //        throw new NotImplementedException();
-    // }
 
     //estefi
     public void EndGame()
     {
         isGameOver = true; // Set the game over flag
-        //gameOver.SetTrigger("GameOverTrigger");
+        
         gameOver.AnimateGameOver();
-        //GameOver.Instance.AnimateGameOver();
+      
         Debug.Log("Ending Game");
 
     }
