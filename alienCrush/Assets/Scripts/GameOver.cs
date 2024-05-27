@@ -9,10 +9,11 @@ public class GameOver : MonoBehaviour
 
     public UnityEngine.UI.Image[] stars;
 
-    //public Animator animator;
+    //public Animator animacion;
 
     
     [SerializeField] private Animator animator;
+
     private bool gameHasEnded = false; // Variable para rastrear si el juego ha terminado
 
     
@@ -20,6 +21,7 @@ public class GameOver : MonoBehaviour
     {
         // Asegúrate de que el panel de GameOver esté desactivado al inicio
         gameObject.SetActive(false);
+        animator.speed = 0;
     }
 
     // Update is called once per frame
@@ -53,7 +55,7 @@ public class GameOver : MonoBehaviour
         Debug.Log("Triggering GameOver animation");
 
         // Adjust the animation speed
-        animator.speed = 0.5f; // Example: double the speed
+        animator.speed = 1;
 
         animator.SetTrigger("GameOverTrigger");
 
