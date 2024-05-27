@@ -37,13 +37,12 @@ public sealed class ScoreCounter : MonoBehaviour
             //}
 
             //estefi
-            if (score >= 300)
+            if (score >= 1000)
             {
-                Debug.Log("Puntaje alcanzado: 300");
+                Debug.Log("Puntaje alcanzado: 1000");
                
                 Board.Instance.EndGame();
-
-                //GameOver.Instance.AnimateGameOver(); // Llama a la animación de Game Over
+                //GameOver.Inst+ance.AnimateGameOver(); // Llama a la animación de Game Over
             }
         }
     }

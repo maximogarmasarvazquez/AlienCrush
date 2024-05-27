@@ -143,7 +143,7 @@ public sealed class Board : MonoBehaviour
         {
             for (var x = 0; x < Width; x++)
             {
-                if (Tiles[x, y].GetConnectedTiles().Skip(1).Count() >= 2)
+                if (Tiles[x, y].GetValidConnectedTiles().Count >= 3)
                 {
                     Debug.Log($"Can pop at ({x}, {y})");
                     return true;
@@ -247,11 +247,9 @@ public sealed class Board : MonoBehaviour
             for (var x = 0; x < Width; x++)
             {
                 var tile = Tiles[x, y];
-                var connectedTiles = tile.GetConnectedTiles();
+                var connectedTiles = tile.GetValidConnectedTiles();
 
-                if (connectedTiles.Skip(1).Count() < 2) continue;
-
-               
+                if (connectedTiles.Count < 3) continue;
 
                 var deflateSequence = DOTween.Sequence();
 
@@ -270,30 +268,24 @@ public sealed class Board : MonoBehaviour
 
                 do
                 {
-
                     foreach (var connectedTile in connectedTiles)
                     {
                         connectedTile.Item = ItemDataBase.Items[Random.Range(0, ItemDataBase.Items.Length)];
                         //bomba
                         inflateSequence.Join(connectedTile.icon.transform.DOScale(Vector3.one, TweenDuration));
                     }
-
-
                 } while (!CanCombinacion());
 
                 await inflateSequence.Play().AsyncWaitForCompletion();
-
             }
         }
 
         //estefi
-        if (ScoreCounter.Instance.Score >= 300)
+        if (ScoreCounter.Instance.Score >= 1000)
         {
             EndGame();
-            
         }
     }
-
 
     //estefi
     public void EndGame()
