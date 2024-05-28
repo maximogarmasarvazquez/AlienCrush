@@ -12,17 +12,15 @@ public class Movimiento : MonoBehaviour
     [SerializeField] private Transform[] puntosDeMovimiento;
     [SerializeField] private float distanciaMinima;
 
-    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer SpriteRenderer;
     public LevelManager levelManager;
     private int siguientePaso = 0;
 
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
     }
-
-
-
+ 
     private void Rotar()
     {
         // Calcula la dirección hacia el siguiente punto
