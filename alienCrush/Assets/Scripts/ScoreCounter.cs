@@ -30,14 +30,10 @@ public sealed class ScoreCounter : MonoBehaviour
                 Debug.LogWarning("ScoreText is not assigned.");
             } //estefi
 
-            //if (score >= 100)
-            //{
-            //    Debug.Log("Cambio de escena");
-            //    SceneManager.LoadScene(1);
-            //}
+   
 
             //estefi
-            if (score >= 1000)
+            if (score >= 300)
             {
                 Debug.Log("Puntaje alcanzado: 1000");
                

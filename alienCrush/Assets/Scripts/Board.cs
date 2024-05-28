@@ -281,7 +281,7 @@ public sealed class Board : MonoBehaviour
         }
 
         //estefi
-        if (ScoreCounter.Instance.Score >= 1000)
+        if (ScoreCounter.Instance.Score >= 300)
         {
             EndGame();
         }
