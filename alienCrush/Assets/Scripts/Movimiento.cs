@@ -32,8 +32,7 @@ public class Movimiento : MonoBehaviour
         {
             angle += 180f;
         }
-    
-       
+
         // Verifica si el ángulo de rotación supera cierto umbral
         if (transform.rotation.z > 0.7)
         {
