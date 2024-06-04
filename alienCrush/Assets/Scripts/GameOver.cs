@@ -34,13 +34,13 @@ public class GameOver : MonoBehaviour
 
     public void OnReplayClicked()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
 
     }
 
     public void OnDoneClicked()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     internal void AnimateGameOver()
