@@ -8,9 +8,6 @@ public class User : MonoBehaviour
     public int Id;
     public string nombre;
     public bool nivel1 ;
-    public int puntos = 0;
-    public int estrellas = 0;
-
-
-
+    public int puntosGanados = 0;
+    public int estrellasGanadas = 0;
 }

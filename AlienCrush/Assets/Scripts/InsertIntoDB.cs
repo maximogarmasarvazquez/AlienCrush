@@ -9,6 +9,8 @@ using static UnityEngine.UIElements.UxmlAttributeDescription;
 using UnityEngine.SocialPlatforms;
 using UnityEditor;
 using System;
+using UnityEditor.SearchService;
+using UnityEngine.SceneManagement;
 public class InsertIntoDB : MonoBehaviour
 {
     public GameObject UserTextPrefab; // Referencia al Prefab
@@ -16,7 +18,7 @@ public class InsertIntoDB : MonoBehaviour
     public string DatabaseNombre;
     public InputField NombreInput;
     public User user;
-
+    public Text textElement;
     public void InsertInto()
     {
         var _NombreInput = NombreInput.text.Trim();
@@ -30,14 +32,13 @@ public class InsertIntoDB : MonoBehaviour
         dbcon = new SqliteConnection(conn);
         dbcon.Open();
         dbcmd = dbcon.CreateCommand();
-        string SQLQuery = "Insert Into Users(Nombre)" +
-                          "Values('" + _NombreInput + "') ";
+        string SQLQuery = "Insert Into Users(Nombre) Values(@nombre)";
+        dbcmd = dbcon.CreateCommand();
         dbcmd.CommandText = SQLQuery;
+        dbcmd.Parameters.Add(new SqliteParameter("@nombre", _NombreInput));
         reader = dbcmd.ExecuteReader();
-        while (reader.Read())
-        {
 
-        }
+        SelectUser(_NombreInput);
 
         reader.Close();
         reader = null;
@@ -101,23 +102,47 @@ public class InsertIntoDB : MonoBehaviour
         {
 
 
-            user.Id = reader.GetInt32(0);
-            user.nombre = reader.GetString(1);
+           user.Id = int.Parse(reader["ID"].ToString());
+        
+            user.nombre = reader["Nombre"].ToString();
 
-            //ERROR
-            //int nivel1Value = reader.GetInt32(2);  // Asumimos que Nivel1 se almacena como entero 0 (falso) o 1 (verdadero) 
-            //user.nivel1 = nivel1Value != 0; //ERROR
 
-            //user.puntos = reader.GetInt32(3); //ERROR
-            //user.estrellas = reader.GetInt32(4); //ERROR
+            try
+            {
+                int NivelTerminado = int.Parse(reader["NivelTerminado"].ToString());  // Asumimos que Nivel1 se almacena como entero 0 (falso) o 1 (verdadero) 
+
+                user.nivel1 = NivelTerminado != 0;
+            }
+            catch (Exception )
+            {
+                user.nivel1 = false;
+            }
+
+            try
+            {
+                user.puntosGanados = int.Parse(reader["PuntosGanados"].ToString());
+            } catch (Exception )
+            {
+                user.puntosGanados = 0;
+            }
+
+
+            try
+            {
+                user.estrellasGanadas = int.Parse(reader["EstrellasGanadas"].ToString());
+            }
+            catch (Exception)
+            {
+                user.estrellasGanadas = 0;
+            }
 
             Debug.Log("ID: " + user.Id);
             Debug.Log("Nombre: " + user.nombre);
-            //Debug.Log("Nivel 1: " + user.nivel1);
-            //Debug.Log("Puntos: " + user.puntos);
-            //Debug.Log("Estrellas: " + user.estrellas);
+            Debug.Log("Nivel 1: " + user.nivel1);
+            Debug.Log("Puntos: " + user.puntosGanados);
+            Debug.Log("Estrellas: " + user.estrellasGanadas);
 
-
+            
         }
 
         reader.Close();
@@ -126,6 +151,19 @@ public class InsertIntoDB : MonoBehaviour
         dbcmd = null;
         dbcon.Close();
         dbcon = null;
+       
+        updateContador();
+        SceneManager.LoadScene(2);
+        
+    }
+
+    public void updateContador()
+    {
+        Debug.Log("ID: " + user.Id);
+        Debug.Log("Nombre: " + user.nombre);
+        Debug.Log("Nivel 1: " + user.nivel1);
+        Debug.Log("Puntos: " + user.puntosGanados);
+        Debug.Log("Estrellas: " + user.estrellasGanadas);
     }
 }
 
