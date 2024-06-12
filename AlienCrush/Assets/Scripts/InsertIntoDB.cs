@@ -152,19 +152,18 @@ public class InsertIntoDB : MonoBehaviour
         dbcon.Close();
         dbcon = null;
        
-        updateContador();
+        // Guardar la información del jugador seleccionado
+        PlayerData.Id = user.Id;
+        PlayerData.Nombre = user.nombre;
+        PlayerData.NivelTerminado = user.nivel1 ? 1 : 0; // Asume que solo hay un nivel por ahora
+        PlayerData.PuntosGanados = user.puntosGanados;
+        PlayerData.EstrellasGanadas = user.estrellasGanadas;
+        
         SceneManager.LoadScene(2);
         
     }
 
-    public void updateContador()
-    {
-        Debug.Log("ID: " + user.Id);
-        Debug.Log("Nombre: " + user.nombre);
-        Debug.Log("Nivel 1: " + user.nivel1);
-        Debug.Log("Puntos: " + user.puntosGanados);
-        Debug.Log("Estrellas: " + user.estrellasGanadas);
-    }
+
 }
 
 

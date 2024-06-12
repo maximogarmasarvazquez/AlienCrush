@@ -18,27 +18,27 @@ public sealed class ScoreCounter : MonoBehaviour
         {
             if (score == value) return;
             score = value;
-            //estefi
-            if (scoreText != null)//estefi
+          
+            if (scoreText != null)
             {
                 scoreTextTotal.SetText($"{score}");
                 scoreText.SetText($"{score}");
-                //estefi
+               
             }
             else
             {
                 Debug.LogWarning("ScoreText is not assigned.");
-            } //estefi
+            } 
 
    
 
-            //estefi
+           
             if (score >= 300)
             {
                 Debug.Log("Puntaje alcanzado: 1000");
                
                 Board.Instance.EndGame();
-                //GameOver.Inst+ance.AnimateGameOver(); // Llama a la animación de Game Over
+                
             }
         }
     }
