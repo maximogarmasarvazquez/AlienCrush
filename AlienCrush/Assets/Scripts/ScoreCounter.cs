@@ -38,9 +38,13 @@ public sealed class ScoreCounter : MonoBehaviour
                 Debug.Log("Puntaje alcanzado: 1000");
                
                 Board.Instance.EndGame();
-                
+                PlayerData.PuntosGanados += score;
+                PlayerData.EstrellasGanadas += 3;
+                PlayerData.NivelTerminado = 1;
+                PlayerData.ActualizarData();
             }
         }
+       
     }
 
     [SerializeField] private TextMeshProUGUI scoreText;
