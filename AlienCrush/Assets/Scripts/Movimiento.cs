@@ -87,7 +87,7 @@ public class Movimiento : MonoBehaviour
                         if (siguientePaso == 5)
                         {
                             Debug.Log("nivel2" + levelManager.nivel2);
-                            SceneManager.LoadScene(4);
+                            SceneManager.LoadScene(3);
                         }
                     }
                     else if (levelManager.nivel3)
@@ -97,7 +97,7 @@ public class Movimiento : MonoBehaviour
                         if (siguientePaso == puntosDeMovimiento.Length)
                         {
                             Debug.Log("nivel3" + levelManager.nivel3);
-                            SceneManager.LoadScene(5);
+                            SceneManager.LoadScene(3);
                         }
 
 
