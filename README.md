@@ -1,6 +1,6 @@
 # AlienCrush
 
-## Descripción 🏝
+## Descripción 
 
 Este fue el proyecto final reaizado en el Instituto Superior Santa Rosa,
 creamos un videojuego de tipo Match 3 y para construirlo utilizamos el lenguaje C# y el motor grafico de Unity.
